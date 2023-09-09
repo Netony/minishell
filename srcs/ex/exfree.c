@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 13:52:43 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/04 19:38:22 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:11:57 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	exnodeclose(t_exnode *arg)
 {
-	if (arg->read != 0 && arg->read != 1)
+	if (arg->read > 2)
 		close(arg->read);
-	if (arg->write != 0 && arg->write != 1)
+	if (arg->write > 2)
 		close(arg->write);
 }
 

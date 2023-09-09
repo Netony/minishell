@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 19:37:05 by dajeon            #+#    #+#              #
-#    Updated: 2023/09/06 11:13:11 by seunghy2         ###   ########.fr        #
+#    Updated: 2023/09/09 21:05:57 by seunghy2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SOURCES = parser/redi.c \
 		  ex/exbuiltin.c \
 		  ex/expipe.c \
 		  ex/exnode.c \
+		  ex/exheredoc.c \
 		  ex/exreal.c
 
 DIRS = parser env ex

@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:58 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/04 19:37:04 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:11:07 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,16 @@ int	notendline(char *line, char *endline)
 int	tmpfilefd(char *endline)
 {
 	int		fd;
-	char	*line;
 	char	*filepath;
 
 	filepath = nonexitpath();
 	fd = open(filepath, O_WRONLY | O_CREAT | O_EXCL, 0644);
-	write(1, "> ", 2);
-	line = get_next_line(0);
-	while (notendline(line, endline))
+	if (ft_here_doc_acting(endline, fd))
 	{
-		write(fd, line, ft_strlen(line));
-		free(line);
-		write(1, "> ", 2);
-		line = get_next_line(0);
+		close(fd);
+		unlink(filepath);
+		return (-2);
 	}
-	free(line);
 	close(fd);
 	fd = open(filepath, O_RDONLY);
 	unlink(filepath);
@@ -117,6 +112,8 @@ int	exnodeset(t_exnode *arg, t_cmd node, int inpipe)
 	while (temp)
 	{
 		openclose(arg, (t_redi *)(temp->content));
+		if (arg->read == -2)
+			return (9999);
 		if (arg->read == -1 || arg->write == -1)
 		{
 			errormsg(MS_ERRNO, ((t_redi *)(temp->content))->path);

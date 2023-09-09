@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:08:09 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/09 17:54:22 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/09 21:13:46 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int		ft_infoinit(t_info *info, char **envp);
 void	main_sigint_handler(int signum);
 void	sigquit_handler(int sigquit);
 void	sigint_handler(int sigint);
+void	sigint_handler_here_doc(int sigint);
 
 #endif

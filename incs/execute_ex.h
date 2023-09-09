@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:19:57 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/09 12:14:40 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:06:27 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int			exbuiltin(t_exnode *arg, t_env **envlst, int noend, int outpipe);
 int			builtincheck(char *command);
 void		exnodeclose(t_exnode *arg);
 void		exlstfree(t_exnode *exlst, int size);
+int			ft_here_doc_acting(char *endline, int fd);
 
 int			ft_cd(char **command, t_env **envlst);
 int			ft_echo(char **command);
