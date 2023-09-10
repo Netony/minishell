@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:07:02 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/10 21:19:14 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/10 21:47:25 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ t_list	*ft_parse_env(t_info *info, const char *s, int *i);
 t_list	*ft_parse_escape(const char *s, int *i, const char *set);
 
 t_list	*ft_emptynew(void);
-
-//char	*ft_lstjoin(t_list *lst);
 
 int		ft_isin(int a, const char *set);
 int		ft_toklen(const char *s, int start, const char *set);

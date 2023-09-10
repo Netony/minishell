@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/10 21:20:38 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/10 21:52:59 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,22 +119,3 @@ char	*env_getfrominfo(t_info *info, char *key)
 		return (ft_strdup(""));
 	return (ft_strdup(node->value));
 }
-
-/*
-
-char	*env_getval(t_info *info, char *key)
-{
-	if (key == NULL)
-		return (ft_strdup("$"));
-	else if (key[0] == '\0')
-		return (ft_strdup(""));
-	else if (ft_strcmp(key, "$") == 0)
-		return (ft_strdup(""));
-	else if (ft_strcmp(key, "?") == 0)
-		return (ft_itoa((unsigned char)(g_status >> 8)));
-	else if (ft_strcmp(key, "!") == 0)
-		return (ft_itoa(info->lastpid));
-	else
-		return (env_getfrominfo(info, key));
-}
-*/

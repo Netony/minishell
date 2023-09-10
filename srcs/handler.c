@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:20:48 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/10 21:21:05 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/10 21:55:09 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void	sigint_handler(int sigint)
 void	sigint_handler_here_doc(int sigint)
 {
 	(void)sigint;
+	g_status = 1 << 8;
 	ft_putendl_fd("", 1);
 }

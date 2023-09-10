@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:41:11 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/10 21:20:36 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/10 21:55:10 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_here_doc_acting(char *endline, int fd)
 {
 	char	*str;
 	pid_t	pid;
-	int		heredocg_status;
+	int		heredoc_status;
 
 	signal(SIGINT, sigint_handler_here_doc);
 	pid = fork();
@@ -37,7 +37,7 @@ int	ft_here_doc_acting(char *endline, int fd)
 			free(str);
 		}
 	}
-	waitpid(pid, &heredocg_status, 0);
+	waitpid(pid, &heredoc_status, 0);
 	signal(SIGINT, main_sigint_handler);
-	return (heredocg_status);
+	return (heredoc_status);
 }
