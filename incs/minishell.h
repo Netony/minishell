@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:08:09 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/09 21:13:46 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:19:00 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <readline/readline.h>
 # include <termios.h>
 
-int		status;
+int		g_status;
 
 int		ft_terminit(t_info *info, char **envp);
 int		ft_termexit(t_info *info);

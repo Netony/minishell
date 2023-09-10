@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/09 21:11:42 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:20:37 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	piping(t_cmd *lst, int size, t_info *info)
 	info->lastpid = expipe(exlst, lst, size, &(info->envlst));
 	exlstfree(exlst, size);
 	if (info->lastpid > 0)
-		waitpid(info->lastpid, &(info->status), 0);
+		waitpid(info->lastpid, &g_status, 0);
 	pid = 1;
 	while (pid != -1)
 	{

@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/09 17:38:42 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/10 21:20:38 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 #include "minishell.h"
 
 int		env_getkey(char **key, const char *s, int *i);
-char	*env_getval(t_info *info, char *key);
+t_list	*env_getval(t_info *info, char *key);
+char	*env_getval_base(t_info *info, char *key);
 char	*env_getfrominfo(t_info *info, char *key);
 
-char	*ft_parse_env(t_info *info, const char *s, int *i)
+t_list	*ft_parse_env(t_info *info, const char *s, int *i)
 {
-	char	*val;
+	t_list	*val;
 	char	*key;
 
 	if (env_getkey(&key, s, i) < 0)
@@ -36,7 +37,7 @@ int	env_getkey(char **key, const char *s, int *i)
 	int		len;
 
 	*i += 1;
-	len = ft_toklen(s, *i, "\"\' <|>?!$");
+	len = ft_toklen(s, *i, "\"\'\\ <|>?!$");
 	if (len == 0)
 	{
 		if (s[*i] == '\0' || ft_isin(s[*i], " <|>"))
@@ -60,7 +61,36 @@ int	env_getkey(char **key, const char *s, int *i)
 	return (0);
 }
 
-char	*env_getval(t_info *info, char *key)
+t_list	*env_getval(t_info *info, char *key)
+{
+	char	*val;
+	t_list	*list;
+	t_list	*node;
+	int		i;
+
+	i = 0;
+	val = env_getval_base(info, key);
+	if (val == NULL)
+		return (NULL);
+	list = NULL;
+	while (val[i])
+	{
+		if (val[i] == ' ')
+			node = ft_parse_space(val, &i, " ");
+		else
+			node = ft_parse_token(val, &i, " ");
+		if (node == NULL)
+		{
+			ft_txtclear(&list);
+			return (NULL);
+		}
+		ft_lstadd_back(&list, node);
+	}
+	free(val);
+	return (list);
+}
+
+char	*env_getval_base(t_info *info, char *key)
 {
 	if (key == NULL)
 		return (ft_strdup("$"));
@@ -69,7 +99,7 @@ char	*env_getval(t_info *info, char *key)
 	else if (ft_strcmp(key, "$") == 0)
 		return (ft_strdup(""));
 	else if (ft_strcmp(key, "?") == 0)
-		return (ft_itoa((unsigned char)(status >> 8)));
+		return (ft_itoa((unsigned char)(g_status >> 8)));
 	else if (ft_strcmp(key, "!") == 0)
 		return (ft_itoa(info->lastpid));
 	else
@@ -89,3 +119,22 @@ char	*env_getfrominfo(t_info *info, char *key)
 		return (ft_strdup(""));
 	return (ft_strdup(node->value));
 }
+
+/*
+
+char	*env_getval(t_info *info, char *key)
+{
+	if (key == NULL)
+		return (ft_strdup("$"));
+	else if (key[0] == '\0')
+		return (ft_strdup(""));
+	else if (ft_strcmp(key, "$") == 0)
+		return (ft_strdup(""));
+	else if (ft_strcmp(key, "?") == 0)
+		return (ft_itoa((unsigned char)(g_status >> 8)));
+	else if (ft_strcmp(key, "!") == 0)
+		return (ft_itoa(info->lastpid));
+	else
+		return (env_getfrominfo(info, key));
+}
+*/

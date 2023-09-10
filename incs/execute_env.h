@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:19:28 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/09 14:03:50 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:13:57 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_env
 typedef struct s_info
 {
 	t_env	*envlst;
-	int		status;
 	pid_t	lastpid;
 }	t_info;
 

@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:20:48 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/09 21:13:21 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:21:05 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	sigquit_handler(int sigquit)
 {
 	(void)sigquit;
 	ft_putendl_fd("Quit: 3", 1);
-	status = 131 << 8;
+	g_status = 131 << 8;
 }
 
 void	sigint_handler(int sigint)
 {
 	(void)sigint;
 	ft_putendl_fd("", 1);
-	status = 130 << 8;
+	g_status = 130 << 8;
 }
 
 void	sigint_handler_here_doc(int sigint)

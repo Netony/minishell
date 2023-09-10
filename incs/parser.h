@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:07:02 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/06 11:07:30 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/10 21:19:14 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,24 @@ t_list	*ft_parse_cmd_list(t_info *info, const char *s, int *i);
 
 t_list	*ft_parse_redi_list(t_info *info, const char *s, int *i);
 t_list	*ft_parse_redi_node(t_info *info, const char *s, int *i);
+
 char	*ft_parse_type(const char *s, int *i);
-char	*ft_parse_path(t_info *info, const char *s, int *i);
+t_list	*ft_redirect_new(char *type, t_info *info, const char *s, int *i);
+t_list	*ft_param_new(t_info *info, const char *s, int *i);
 
 t_list	*ft_parse_text_list(t_info *info, const char *s, int *i);
 t_list	*ft_parse_text_node(t_info *info, const char *s, int *i);
 
-char	*ft_parse_tok(const char *s, int *i, const char *set);
-char	*ft_parse_quote(const char *s, int *i);
-char	*ft_parse_dquote(t_info *info, const char *s, int *i);
-char	*ft_parse_env(t_info *info, const char *s, int *i);
+t_list	*ft_parse_token(const char *s, int *i, const char *set);
+t_list	*ft_parse_space(const char *s, int *i, const char *set);
+t_list	*ft_parse_quote(const char *s, int *i);
+t_list	*ft_parse_dquote(t_info *info, const char *s, int *i);
+t_list	*ft_parse_env(t_info *info, const char *s, int *i);
+t_list	*ft_parse_escape(const char *s, int *i, const char *set);
 
-char	*ft_lstjoin(t_list *lst);
+t_list	*ft_emptynew(void);
+
+//char	*ft_lstjoin(t_list *lst);
 
 int		ft_isin(int a, const char *set);
 int		ft_toklen(const char *s, int start, const char *set);

@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 19:53:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/09 17:27:00 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/10 21:21:06 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	tmpstdinout(t_exnode *onebuilt, t_cmd *cmd_array, t_info *info)
 	dup2(0, tmp_std[0]);
 	dup2(1, tmp_std[1]);
 	if (exnodeset(onebuilt, *cmd_array, 0))
-		info->status = 1;
+		g_status = 1;
 	else
 	{
 		if (!(ft_strcmp((cmd_array->command)[0], "exit")))
 			ft_exit(onebuilt, info->envlst, 1);
-		info->status = exbuiltin(onebuilt, &(info->envlst), 0, 1);
+		g_status = exbuiltin(onebuilt, &(info->envlst), 0, 1);
 	}
 	dup2(tmp_std[0], 0);
 	dup2(tmp_std[1], 1);

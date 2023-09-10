@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:50:34 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/09 18:09:32 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/10 21:21:06 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_terminit(t_info *info, char **envp)
 {
 	info->envlst = envlist(envp);
-	info->status = 0;
+	g_status = 0;
 	return (0);
 }
 

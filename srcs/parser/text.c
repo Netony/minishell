@@ -1,48 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redi.c                                             :+:      :+:    :+:   */
+/*   text.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/01 19:48:46 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/10 20:51:48 by dajeon           ###   ########.fr       */
+/*   Created: 2023/09/10 21:18:13 by dajeon            #+#    #+#             */
+/*   Updated: 2023/09/10 21:18:20 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "parser.h"
+#include "redi.h"
 
-t_list	*ft_redi_node(char *type, char *path)
+t_redi	*ft_txtbase(char *type, char *path);
+
+void	ft_txtclear(t_list **text)
+{
+	ft_lstclear(text, ft_txtdel);
+}
+
+t_list	*ft_txtnew(char *type, char *path)
 {
 	t_redi	*redi;
 	t_list	*node;
 
-	redi = ft_redinew(type, path);
+	redi = ft_txtbase(type, path);
 	if (redi == NULL)
 		return (NULL);
 	node = ft_lstnew(redi);
 	if (node == NULL)
 	{
-		ft_redidel(redi);
+		ft_txtdel(redi);
 		return (NULL);
 	}
 	return (node);
 }
 
-t_redi	*ft_redinew(char *type, char *path)
+t_redi	*ft_txtbase(char *type, char *path)
 {
-	t_redi	*redi;
+	t_redi	*text;
 
-	redi = (t_redi *)malloc(sizeof(t_redi));
-	if (redi == NULL)
+	text = (t_redi *)malloc(sizeof(t_redi));
+	if (text == NULL)
 		return (NULL);
-	redi->type = type;
-	redi->path = path;
-	return (redi);
+	text->type = ft_strdup(type);
+	text->path = path;
+	if (text->type == NULL)
+	{
+		ft_txtdel(text);
+		return (NULL);
+	}
+	text->path = path;
+	return (text);
 }
 
-void	ft_redidel(void *param)
+void	ft_txtdel(void *param)
 {
 	t_redi	*redi;
 
@@ -50,29 +63,4 @@ void	ft_redidel(void *param)
 	free(redi->type);
 	free(redi->path);
 	free(redi);
-}
-
-t_redi	*ft_redicopy(t_redi *redi)
-{
-	t_redi	*copy;
-	char	*type;
-	char	*path;
-
-	type = ft_strdup(redi->type);
-	if (type == NULL)
-		return (NULL);
-	path = ft_strdup(redi->path);
-	if (path == NULL)
-	{
-		free(type);
-		return (NULL);
-	}
-	copy = ft_redinew(type, path);
-	if (copy == NULL)
-	{
-		free(type);
-		free(path);
-		return (NULL);
-	}
-	return (copy);
 }

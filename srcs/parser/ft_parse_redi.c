@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:48:23 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/04 18:52:20 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/10 21:04:15 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,46 +38,24 @@ t_list	*ft_parse_redi_list(t_info *info, const char *s, int *i)
 
 t_list	*ft_parse_redi_node(t_info *info, const char *s, int *i)
 {
-	t_list	*node;
-	t_redi	*redi;
+	t_list	*redi;
 	char	*type;
-	char	*text;
 
 	type = ft_parse_type(s, i);
 	if (type == NULL)
 		return (NULL);
-	text = ft_parse_path(info, s, i);
-	if (text == NULL)
-	{
-		free(type);
-		return (NULL);
-	}
-	redi = ft_redinew(type, text);
+	if (ft_strcmp(type, "param") == 0)
+		redi = ft_param_new(info, s, i);
+	else
+		redi = ft_redirect_new(type, info, s, i);
 	if (redi == NULL)
 	{
 		free(type);
-		free(text);
 		return (NULL);
 	}
-	node = ft_lstnew(redi);
-	if (node == NULL)
-		ft_redidel(redi);
-	return (node);
-}
-
-char	*ft_parse_path(t_info *info, const char *s, int *i)
-{
-	char	*path;
-	t_list	*text_list;
-
-	text_list = ft_parse_text_list(info, s, i);
-	if (text_list == NULL)
-		return (NULL);
-	path = ft_lstjoin(text_list);
-	ft_lstclear(&text_list, free);
-	if (path == NULL)
-		return (NULL);
-	return (path);
+	if (ft_strcmp(type, "param") == 0)
+		free(type);
+	return (redi);
 }
 
 char	*ft_parse_type(const char *s, int *i)
