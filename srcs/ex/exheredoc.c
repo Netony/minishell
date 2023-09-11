@@ -6,13 +6,13 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:41:11 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/10 21:55:10 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/11 13:21:22 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_here_doc_acting(char *endline, int fd)
+int	tmpheredoc(char *endline, int fd)
 {
 	char	*str;
 	pid_t	pid;
@@ -32,8 +32,7 @@ int	ft_here_doc_acting(char *endline, int fd)
 					free(str);
 				exit(0);
 			}
-			write(fd, str, ft_strlen(str));
-			write(fd, "\n", 1);
+			ft_putendl_fd(str, fd);
 			free(str);
 		}
 	}

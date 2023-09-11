@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:58 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/09 21:11:07 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:17:35 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,6 @@ char	*nonexitpath(void)
 	return (result);
 }
 
-int	notendline(char *line, char *endline)
-{
-	size_t	newlinepoint;
-
-	newlinepoint = ft_strlen(endline);
-	if (ft_strncmp(line, endline, newlinepoint))
-		return (1);
-	else if (line[newlinepoint] != '\n')
-		return (1);
-	return (0);
-}
-
 int	tmpfilefd(char *endline)
 {
 	int		fd;
@@ -60,10 +48,11 @@ int	tmpfilefd(char *endline)
 
 	filepath = nonexitpath();
 	fd = open(filepath, O_WRONLY | O_CREAT | O_EXCL, 0644);
-	if (ft_here_doc_acting(endline, fd))
+	if (tmpheredoc(endline, fd))
 	{
 		close(fd);
 		unlink(filepath);
+		free(filepath);
 		return (-2);
 	}
 	close(fd);
