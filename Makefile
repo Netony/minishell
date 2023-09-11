@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 19:37:05 by dajeon            #+#    #+#              #
-#    Updated: 2023/09/10 21:33:37 by dajeon           ###   ########.fr        #
+#    Updated: 2023/09/11 15:29:53 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SOURCES = parser/redi.c \
 		  parser/vars.c \
 		  parser/cmd.c \
 		  parser/text.c \
+		  parser/status.c \
 		  handler.c \
 		  error.c \
 		  ft_cd.c \

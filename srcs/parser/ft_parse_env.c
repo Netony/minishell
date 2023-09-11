@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/10 21:52:59 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/11 15:30:22 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		env_getkey(char **key, const char *s, int *i);
 t_list	*env_getval(t_info *info, char *key);
 char	*env_getval_base(t_info *info, char *key);
 char	*env_getfrominfo(t_info *info, char *key);
+int		ft_status(int status);
 
 t_list	*ft_parse_env(t_info *info, const char *s, int *i)
 {
@@ -99,7 +100,7 @@ char	*env_getval_base(t_info *info, char *key)
 	else if (ft_strcmp(key, "$") == 0)
 		return (ft_strdup(""));
 	else if (ft_strcmp(key, "?") == 0)
-		return (ft_itoa((unsigned char)(g_status >> 8)));
+		return (ft_itoa(ft_status(g_status)));
 	else if (ft_strcmp(key, "!") == 0)
 		return (ft_itoa(info->lastpid));
 	else
