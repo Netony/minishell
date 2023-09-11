@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:50:34 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/11 15:25:51 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/11 15:40:36 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	ft_termunset(void)
 {
 	struct termios	term;
 
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag |= ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
