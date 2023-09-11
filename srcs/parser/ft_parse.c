@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:43 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/04 18:42:31 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/11 19:12:27 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ t_list	*ft_parse_cmd_list(t_info *info, const char *s, int *i)
 
 t_list	*ft_parse_cmd_node(t_info *info, const char *s, int *i)
 {
-	t_list	*redi_list;
 	t_list	*cmd_node;
+	t_list	*redi_list;
 
-	redi_list = NULL;
 	if (s[*i] == '|')
 		*i += 1;
 	*i += ft_duplen(s, *i, " ");
@@ -62,9 +61,7 @@ t_list	*ft_parse_cmd_node(t_info *info, const char *s, int *i)
 		ft_error("newline");
 		return (NULL);
 	}
-	redi_list = ft_parse_redi_list(info, s, i);
-	if (redi_list == NULL)
-		return (NULL);
+	redi_list = ft_parse_cmd(info, s, i);
 	cmd_node = ft_lstnew(redi_list);
 	if (cmd_node == NULL)
 	{

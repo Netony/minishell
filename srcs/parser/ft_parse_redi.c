@@ -6,99 +6,108 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:48:23 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/10 21:04:15 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/11 19:21:59 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static char	*ft_parse_type_set(const char *s, int *i);
+t_list	*ft_parse_redi_type(const char *s, int *i);
+t_list	*ft_parse_redi_path(t_info *info, const char *s, int *i);
+int		ft_path_size(t_list *node);
+int		ft_check_redi(const char *s, int *i);
 
-t_list	*ft_parse_redi_list(t_info *info, const char *s, int *i)
+t_list	*ft_parse_redi(t_info *info, const char *s, int *i)
 {
 	t_list	*list;
 	t_list	*node;
 
-	list = NULL;
-	while (1)
+	list = ft_parse_redi_type(s, i);
+	if (list == NULL)
+		return (NULL);
+	node = ft_parse_redi_path(info, s, i);
+	if (node == NULL)
 	{
-		*i += ft_duplen(s, *i, " ");
-		if (s[*i] == '\0' || s[*i] == '|')
-			break ;
-		node = ft_parse_redi_node(info, s, i);
-		if (node == NULL)
-		{
-			ft_lstclear(&list, ft_redidel);
-			return (NULL);
-		}
-		ft_lstadd_back(&list, node);
+		ft_txtclear(&list);
+		return (NULL);
 	}
+	ft_lstadd_back(&list, node);
 	return (list);
 }
 
-t_list	*ft_parse_redi_node(t_info *info, const char *s, int *i)
+t_list	*ft_parse_redi_type(const char *s, int *i)
 {
-	t_list	*redi;
-	char	*type;
-
-	type = ft_parse_type(s, i);
-	if (type == NULL)
-		return (NULL);
-	if (ft_strcmp(type, "param") == 0)
-		redi = ft_param_new(info, s, i);
-	else
-		redi = ft_redirect_new(type, info, s, i);
-	if (redi == NULL)
-	{
-		free(type);
-		return (NULL);
-	}
-	if (ft_strcmp(type, "param") == 0)
-		free(type);
-	return (redi);
-}
-
-char	*ft_parse_type(const char *s, int *i)
-{
-	char	*type;
-
-	type = ft_parse_type_set(s, i);
-	if (type == NULL)
-		return (NULL);
-	if (s[*i] == '\0' || ft_isin(s[*i], "<>|"))
-	{
-		ft_error("newline");
-		free(type);
-		return (NULL);
-	}
-	return (type);
-}
-
-static char	*ft_parse_type_set(const char *s, int *i)
-{
-	char	*type;
+	t_list	*text;
 
 	if (ft_duplen(s, *i, "<") == 1)
-	{
-		*i += 1;
-		type = ft_strdup("infile");
-	}
+		text = ft_parse_size(s, i, 1);
 	else if (ft_duplen(s, *i, ">") == 1)
-	{
-		*i += 1;
-		type = ft_strdup("outfile");
-	}
+		text = ft_parse_size(s, i, 1);
 	else if (ft_duplen(s, *i, "<") > 1)
-	{
-		*i += 2;
-		type = ft_strdup("here_doc");
-	}
+		text = ft_parse_size(s, i, 2);
 	else if (ft_duplen(s, *i, ">") > 1)
-	{
-		*i += 2;
-		type = ft_strdup("append");
-	}
+		text = ft_parse_size(s, i, 2);
 	else
-		type = ft_strdup("param");
-	return (type);
+		text = NULL;
+	return (text);
+}
+
+t_list	*ft_parse_redi_path(t_info *info, const char *s, int *i)
+{
+	t_list	*node;
+	int		temp;
+
+	node = NULL;
+	temp = *i;
+	if (ft_check_redi(s, i) < 0)
+		return (NULL);
+	node = ft_parse_node(info, s, i);
+	if (node == NULL)
+		return (NULL);
+	if (ft_path_size(node) != 1)
+	{
+		write(2, "bash ", 5);
+		write(2, s + temp, *i - temp);
+		ft_putendl_fd(": ambiguous redirect", 2);
+		ft_txtclear(&node);
+		return (NULL);
+	}
+	return (node);
+}
+
+int	ft_check_redi(const char *s, int *i)
+{
+	int	ret;
+
+	ret = 0;
+	*i += ft_duplen(s, *i, " ");
+	if (s[*i] == '\0')
+		ft_error("newline");
+	else if (s[*i] == '|')
+		ft_error("|");
+	else if (s[*i] == '>')
+		ft_error(">");
+	else if (s[*i] == '<')
+		ft_error("<");
+	else
+		ret = 1;
+	return (ret);
+}
+
+int	ft_path_size(t_list *node)
+{
+	t_redi	*redi;
+	int		size;
+
+	size = 0;
+	while (node)
+	{
+		ft_skip_space(&node);
+		if (node == NULL)
+			break ;
+		redi = (t_redi *)(node->content);
+		size++;
+		ft_skip_text(&node);
+	}
+	return (size);
 }

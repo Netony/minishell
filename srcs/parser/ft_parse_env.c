@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/11 15:30:22 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/11 19:03:35 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		env_getkey(char **key, const char *s, int *i);
 t_list	*env_getval(t_info *info, char *key);
 char	*env_getval_base(t_info *info, char *key);
 char	*env_getfrominfo(t_info *info, char *key);
-int		ft_status(int status);
+t_list	*ft_nonenew(void);
 
 t_list	*ft_parse_env(t_info *info, const char *s, int *i)
 {
@@ -38,10 +38,10 @@ int	env_getkey(char **key, const char *s, int *i)
 	int		len;
 
 	*i += 1;
-	len = ft_toklen(s, *i, "\"\'\\ <|>?!$");
+	len = ft_toklen(s, *i, "\"\'\\ <|>?!$.");
 	if (len == 0)
 	{
-		if (s[*i] == '\0' || ft_isin(s[*i], " <|>"))
+		if (s[*i] == '\0' || ft_isin(s[*i], " <|>."))
 		{
 			*key = NULL;
 			return (0);
@@ -77,7 +77,7 @@ t_list	*env_getval(t_info *info, char *key)
 	while (val[i])
 	{
 		if (val[i] == ' ')
-			node = ft_parse_space(val, &i, " ");
+			node = ft_parse_space(val, &i);
 		else
 			node = ft_parse_token(val, &i, " ");
 		if (node == NULL)
@@ -87,6 +87,8 @@ t_list	*env_getval(t_info *info, char *key)
 		}
 		ft_lstadd_back(&list, node);
 	}
+	if (val[0] == '\0')
+		list = ft_nonenew();
 	free(val);
 	return (list);
 }

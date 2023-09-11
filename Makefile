@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 19:37:05 by dajeon            #+#    #+#              #
-#    Updated: 2023/09/11 15:43:13 by dajeon           ###   ########.fr        #
+#    Updated: 2023/09/11 19:24:00 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,7 @@ SOURCES = parser/redi.c \
 		  parser/ft_parse_escape.c \
 		  parser/ft_parse_dquote.c \
 		  parser/ft_parse_quote.c \
-		  parser/ft_param_new.c \
-		  parser/ft_merge_text.c \
+		  parser/ft_merge.c \
 		  parser/ft_error.c \
 		  parser/ft_parse.c \
 		  parser/utils.c \
@@ -32,6 +31,7 @@ SOURCES = parser/redi.c \
 		  parser/vars.c \
 		  parser/cmd.c \
 		  parser/text.c \
+		  parser/text_utils.c \
 		  status.c \
 		  handler.c \
 		  error.c \
