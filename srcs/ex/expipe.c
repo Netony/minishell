@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:07 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/11 15:44:27 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/11 18:46:36 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,7 @@ pid_t	nodepipefork(t_cmd origin, int fd[2], t_exnode *arg, pid_t *pid)
 	pid_t	past;
 
 	past = *pid;
-	if (exnodeset(arg, origin, fd[0]) == 9999)
-	{
-		exnodeclose(arg);
-		return (past);
-	}
+	exnodeset(arg, origin, fd[0]);
 	if (pipe(fd) == -1)
 	{
 		exnodeclose(arg);
@@ -100,17 +96,20 @@ void	piping(t_cmd *lst, int size, t_info *info)
 	pid_t		pid;
 	int			i;
 
+	info->lastpid = -1;
 	exlst = (t_exnode *)malloc(sizeof(t_exnode) * size);
 	if (!exlst)
 		errormsg(MS_MALLOC, 0);
 	i = 0;
-	while (i < size)
+	while (i < size && (exlst[i - 1]).here_doc != -2)
 	{
+		(exlst[i]).here_doc = heredocfd(lst[i]);
 		(exlst[i]).command = (lst[i]).command;
 		i++;
 	}
-	info->lastpid = expipe(exlst, lst, size, &(info->envlst));
-	exlstfree(exlst, size);
+	if (i == size && (exlst[i - 1]).here_doc != -2)
+		info->lastpid = expipe(exlst, lst, size, &(info->envlst));
+	exlstfree(exlst, i);
 	if (info->lastpid > 0)
 		waitpid(info->lastpid, &g_status, 0);
 	ft_sigputend(g_status);

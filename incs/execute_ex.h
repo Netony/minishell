@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:19:57 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/11 13:17:52 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:29:53 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 typedef struct s_exnode
 {
 	int		read;
+	int		here_doc;
 	int		write;
 	char	**command;
 }	t_exnode;
@@ -32,7 +33,7 @@ int			exbuiltin(t_exnode *arg, t_env **envlst, int noend, int outpipe);
 int			builtincheck(char *command);
 void		exnodeclose(t_exnode *arg);
 void		exlstfree(t_exnode *exlst, int size);
-int			tmpheredoc(char *endline, int fd);
+int			heredocfd(t_cmd node);
 
 int			ft_cd(char **command, t_env **envlst);
 int			ft_echo(char **command);
