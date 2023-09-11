@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:03:09 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/04 19:45:29 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/11 16:24:15 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_echo(char **command)
 		if (command[i])
 			printf(" ");
 	}
-	if (ft_strcmp(command[1], "-n"))
+	if (!(command[1]) || ft_strcmp(command[1], "-n"))
 		printf("\n");
 	return (0);
 }
