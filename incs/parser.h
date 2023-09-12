@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:07:02 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/11 19:10:11 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/12 21:07:04 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_skip_text(t_list **text);
 int		ft_skip_space(t_list **text);
 int		ft_txttypeis(t_list *text, char *a);
+int		ft_txtpathis(t_list *text, char *a);
 char	*ft_txtpath(t_list *text);
 #endif

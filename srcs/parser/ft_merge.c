@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:37:32 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/11 19:05:04 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/12 21:07:46 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ t_list	*ft_merge_redi(t_list **text)
 	if (path == NULL)
 		return (NULL);
 	redi = NULL;
-	if (ft_txttypeis(temp, ">"))
-		redi = ft_txtnew(path, "outfile");
-	else if (ft_txttypeis(temp, "<"))
-		redi = ft_txtnew(path, "infile");
-	else if (ft_txttypeis(temp, ">>"))
-		redi = ft_txtnew(path, "append");
-	else if (ft_txttypeis(temp, "<<"))
-		redi = ft_txtnew(path, "here_doc");
+	if (ft_txtpathis(temp, ">"))
+		redi = ft_txtnew("outfile", path);
+	else if (ft_txtpathis(temp, "<"))
+		redi = ft_txtnew("infile", path);
+	else if (ft_txtpathis(temp, ">>"))
+		redi = ft_txtnew("append", path);
+	else if (ft_txtpathis(temp, "<<"))
+		redi = ft_txtnew("here_doc", path);
 	if (redi == NULL)
 	{
 		free(path);

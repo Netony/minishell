@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/11 19:03:35 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/12 21:16:57 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_list	*env_getval(t_info *info, char *key)
 			node = ft_parse_token(val, &i, " ");
 		if (node == NULL)
 		{
+			free(val);
 			ft_txtclear(&list);
 			return (NULL);
 		}

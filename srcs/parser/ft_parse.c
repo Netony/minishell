@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:43 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/11 19:12:27 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/12 21:10:03 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_list	*ft_parse_cmd_node(t_info *info, const char *s, int *i)
 		return (NULL);
 	}
 	redi_list = ft_parse_cmd(info, s, i);
+	if (redi_list == NULL)
+		return (NULL);
 	cmd_node = ft_lstnew(redi_list);
 	if (cmd_node == NULL)
 	{

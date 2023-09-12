@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:48:23 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/11 19:21:59 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/12 20:50:29 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_list	*ft_parse_redi_type(const char *s, int *i);
 t_list	*ft_parse_redi_path(t_info *info, const char *s, int *i);
 int		ft_path_size(t_list *node);
 int		ft_check_redi(const char *s, int *i);
+t_list	*ft_parse_text_redi(t_info *info, const char *s, int *i);
 
 t_list	*ft_parse_redi(t_info *info, const char *s, int *i)
 {
@@ -59,9 +60,9 @@ t_list	*ft_parse_redi_path(t_info *info, const char *s, int *i)
 
 	node = NULL;
 	temp = *i;
-	if (ft_check_redi(s, i) < 0)
+	if (ft_check_redi(s, i) == 0)
 		return (NULL);
-	node = ft_parse_node(info, s, i);
+	node = ft_parse_text_redi(info, s, i);
 	if (node == NULL)
 		return (NULL);
 	if (ft_path_size(node) != 1)
