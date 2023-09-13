@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:05:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/09 13:19:03 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/13 12:55:23 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	exerror(char *cmdpath, char **cmd, char **envp)
 		errormsg(MS_MANUAL, cmdpath);
 		errorend(MS_MANUAL, ": command not found\n", 127);
 	}
+	if (access(cmdpath, F_OK) == -1)
+		errorend(MS_ERRNO, cmdpath, 127);
 	temp = opendir(cmdpath);
 	if (!temp)
 	{
@@ -88,7 +90,7 @@ char	*pathmkr(char *origin, t_env *envlst)
 	result = ft_strdup(origin);
 	if (!result)
 		return (0);
-	if (!(ft_strlen(result)))
+	if (!(ft_strlen(result)) || ft_strchr(result, '/'))
 		return (result);
 	i = -1;
 	while (path[++i] && access(result, F_OK))
