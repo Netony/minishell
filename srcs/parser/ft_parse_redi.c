@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:48:23 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/12 20:50:29 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/13 11:20:24 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_list	*ft_parse_redi_path(t_info *info, const char *s, int *i)
 	int		temp;
 
 	node = NULL;
+	*i += ft_duplen(s, *i, " ");
 	temp = *i;
 	if (ft_check_redi(s, i) == 0)
 		return (NULL);
@@ -67,7 +68,7 @@ t_list	*ft_parse_redi_path(t_info *info, const char *s, int *i)
 		return (NULL);
 	if (ft_path_size(node) != 1)
 	{
-		write(2, "bash ", 5);
+		ft_putstr_fd("minishell: ", 2);
 		write(2, s + temp, *i - temp);
 		ft_putendl_fd(": ambiguous redirect", 2);
 		ft_txtclear(&node);
@@ -81,7 +82,6 @@ int	ft_check_redi(const char *s, int *i)
 	int	ret;
 
 	ret = 0;
-	*i += ft_duplen(s, *i, " ");
 	if (s[*i] == '\0')
 		ft_error("newline");
 	else if (s[*i] == '|')
@@ -97,16 +97,16 @@ int	ft_check_redi(const char *s, int *i)
 
 int	ft_path_size(t_list *node)
 {
-	t_redi	*redi;
 	int		size;
 
 	size = 0;
+	if (ft_txttypeis(node, "none"))
+		return (0);
 	while (node)
 	{
 		ft_skip_space(&node);
 		if (node == NULL)
 			break ;
-		redi = (t_redi *)(node->content);
 		size++;
 		ft_skip_text(&node);
 	}

@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:37:32 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/12 21:07:46 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/13 11:22:37 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ char	*ft_merge_text(t_list **text)
 	join = ft_strdup("");
 	if (join == NULL)
 		return (NULL);
+	ft_skip_space(text);
 	while (*text)
 	{
 		redi = (t_redi *)((*text)->content);

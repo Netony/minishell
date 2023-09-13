@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:48:27 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/12 21:15:51 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/13 11:15:01 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int		ft_isnone(t_list *node);
 t_list	*ft_parse_node(t_info *info, const char *s, int *i);
 t_list	*ft_parse_text(t_info *info, const char *s, int *i);
+t_list	*ft_nonenew(void);
 
 t_list	*ft_parse_cmd(t_info *info, const char *s, int *i)
 {
@@ -107,5 +108,7 @@ t_list	*ft_parse_text_redi(t_info *info, const char *s, int *i)
 		else
 			ft_txtclear(&node);
 	}
+	if (list == NULL)
+		list = ft_nonenew();
 	return (list);
 }

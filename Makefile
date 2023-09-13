@@ -6,7 +6,7 @@
 #    By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 19:37:05 by dajeon            #+#    #+#              #
-#    Updated: 2023/09/12 18:46:55 by dajeon           ###   ########.fr        #
+#    Updated: 2023/09/13 11:23:08 by dajeon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SOURCES = parser/redi.c \
 		  parser/ft_parse_text.c \
 		  parser/ft_parse_token.c \
 		  parser/ft_parse_env.c \
+		  parser/ft_parse_env_utils.c \
 		  parser/ft_parse_escape.c \
 		  parser/ft_parse_dquote.c \
 		  parser/ft_parse_quote.c \
