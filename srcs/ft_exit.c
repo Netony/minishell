@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:39:32 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/13 11:25:39 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:36:09 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_exit(t_exnode *arg, t_env *envlst, int free)
 		temp = ft_atoi(command[1]);
 		result = (unsigned char)temp;
 	}
-	if (command[2])
+	if (command[1] && command[2])
 	{
 		errormsg(MS_MANUAL, "minishell: exit: too many arguments\n");
 		return (1);

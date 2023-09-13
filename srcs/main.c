@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 19:53:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/13 11:23:42 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:42:28 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,17 @@ void	tmpstdinout(t_exnode *onebuilt, t_cmd *cmd_array, t_info *info)
 	dup2(0, tmp_std[0]);
 	dup2(1, tmp_std[1]);
 	if (exnodeset(onebuilt, *cmd_array, 0))
-		g_status = 1;
+		g_status = 1 << 8;
 	else
 	{
 		if (!(ft_strcmp((cmd_array->command)[0], "exit")))
-			g_status = ft_exit(onebuilt, info->envlst, 1);
+			g_status = ft_exit(onebuilt, info->envlst, 1) << 8;
 		else
-			g_status = exbuiltin(onebuilt, &(info->envlst), 0, 1);
+			g_status = exbuiltin(onebuilt, &(info->envlst), 0, 1) << 8;
 	}
 	dup2(tmp_std[0], 0);
 	dup2(tmp_std[1], 1);
 	exnodeclose(onebuilt);
-	exlstfree(onebuilt, 1);
 }
 
 void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_info *info)
@@ -56,7 +55,13 @@ void	ms_excuter(t_cmd *cmd_array, int cmd_size, t_info *info)
 			errormsg(MS_MALLOC, 0);
 			return ;
 		}
-		tmpstdinout(onebuilt, cmd_array, info);
+		onebuilt->here_doc = heredocfd(*cmd_array);
+		onebuilt->command = cmd_array->command;
+		if (onebuilt->here_doc == -2)
+			g_status = 1 << 8;
+		else
+			tmpstdinout(onebuilt, cmd_array, info);
+		exlstfree(onebuilt, 1);
 	}
 }
 

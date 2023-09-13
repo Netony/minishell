@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:58 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/13 10:28:01 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:34:01 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	exnodeset(t_exnode *arg, t_cmd node, int inpipe)
 	arg->read = inpipe;
 	arg->write = 1;
 	temp = node.redilst;
-	arg->command = node.command;
 	while (temp)
 	{
 		openclose(arg, (t_redi *)(temp->content));
