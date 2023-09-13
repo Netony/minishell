@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 21:16:23 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/12 21:15:51 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/13 12:22:13 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,12 @@ char	*ft_dquote_lstjoin(t_list *list)
 		return (NULL);
 	while (list)
 	{
-		redi = list->content;
+		redi = (t_redi *)(list->content);
+		if (ft_txttypeis(list, "none"))
+		{
+			list = list->next;
+			continue ;
+		}
 		temp = join;
 		join = ft_strjoin(join, redi->path);
 		free(temp);
