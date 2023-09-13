@@ -6,11 +6,20 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:04:58 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/11 18:27:37 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/13 10:28:01 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	hdturnzero(t_exnode *node)
+{
+	int	result;
+
+	result = node->here_doc;
+	node->here_doc = 0;
+	return (result);
+}
 
 void	openclose(t_exnode *result, t_redi *content)
 {
@@ -21,7 +30,7 @@ void	openclose(t_exnode *result, t_redi *content)
 	if (++flag && !(ft_strcmp(content->type, "infile")))
 		fd = open(content->path, O_RDONLY);
 	else if (++flag && !(ft_strcmp(content->type, "here_doc")))
-		fd = result->here_doc;
+		fd = hdturnzero(result);
 	else if (++flag && !(ft_strcmp(content->type, "outfile")))
 		fd = open(content->path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (++flag && !(ft_strcmp(content->type, "append")))
