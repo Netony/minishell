@@ -53,7 +53,7 @@ t_list	*ft_parse_redi_type(const char *s, int *i)
 	return (text);
 }
 
-t_list	*ft_parse_redi_path(t_info *info, const char *s, int *i)
+t_list	*ft_parse_redi_path(char *type, t_info *info, const char *s, int *i)
 {
 	t_list	*node;
 	int		temp;
@@ -63,7 +63,10 @@ t_list	*ft_parse_redi_path(t_info *info, const char *s, int *i)
 	temp = *i;
 	if (ft_check_redi(s, i) == 0)
 		return (NULL);
-	node = ft_parse_text_redi(info, s, i);
+	if (ft_strcmp(type, ">>") == 0)
+		node = ft_parse_token(s, i, " ");
+	else
+		node = ft_parse_text_redi(info, s, i);
 	if (node == NULL)
 		return (NULL);
 	if (ft_path_size(node) != 1)

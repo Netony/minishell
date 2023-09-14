@@ -13,7 +13,6 @@
 #include "parser.h"
 
 int		ft_parse_dquote_error(const char *s, int i);
-t_list	*ft_dquote_node(t_info *info, const char *s, int *i);
 char	*ft_dquote_lstjoin(t_list *list);
 t_list	*ft_dquote_merge(t_list *list);
 t_list	*ft_parse_dquote_base(t_info *info, const char *s, int *i);
