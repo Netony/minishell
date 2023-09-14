@@ -6,7 +6,7 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 10:53:31 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/13 11:09:34 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/14 13:44:03 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,8 @@ char	*env_getfrominfo(t_info *info, char *key);
 t_list	*ft_nonenew(void);
 t_list	*env_getval_node(char *val, int *i);
 
-int	env_getkey(char **key, const char *s, int *i)
+int	env_getkey(char **key, const char *s, int *i, int len)
 {
-	int		len;
-
-	*i += 1;
-	len = ft_toklen(s, *i, "\"\'\\ <|>?!$.");
 	if (len == 0)
 	{
 		if (s[*i] == '\0' || ft_isin(s[*i], " <|>."))
@@ -34,8 +30,10 @@ int	env_getkey(char **key, const char *s, int *i)
 		else if (ft_isin(s[*i], "\"\'"))
 			*key = ft_substr(s, *i, 0);
 		else if (ft_isin(s[*i], "!?$"))
+		{
 			*key = ft_substr(s, *i, 1);
-		*i += 1;
+			*i += 1;
+		}
 	}
 	else
 	{

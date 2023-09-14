@@ -6,14 +6,14 @@
 /*   By: dajeon <dajeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:47:49 by dajeon            #+#    #+#             */
-/*   Updated: 2023/09/13 10:58:03 by dajeon           ###   ########.fr       */
+/*   Updated: 2023/09/14 13:44:04 by dajeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "minishell.h"
 
-int		env_getkey(char **key, const char *s, int *i);
+int		env_getkey(char **key, const char *s, int *i, int len);
 t_list	*env_getval(t_info *info, char *key);
 char	*env_getval_base(t_info *info, char *key);
 char	*env_getfrominfo(t_info *info, char *key);
@@ -23,8 +23,11 @@ t_list	*ft_parse_env(t_info *info, const char *s, int *i)
 {
 	t_list	*val;
 	char	*key;
+	int		size;
 
-	if (env_getkey(&key, s, i) < 0)
+	*i += 1;
+	size = ft_toklen(s, *i, "\"\'\\ <|>?!$.");
+	if (env_getkey(&key, s, i, size) < 0)
 		return (NULL);
 	val = env_getval(info, key);
 	free(key);
